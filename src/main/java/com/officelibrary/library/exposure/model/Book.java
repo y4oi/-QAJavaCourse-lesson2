@@ -1,29 +1,31 @@
 package com.officelibrary.library.exposure.model;
 
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Book {
-    private static final AtomicInteger count = new AtomicInteger(0);
 
-    private int uniqueID;
+    @Id
+    private String uniqueID;
     private String title;
     private String author;
     private String description;
 
 
     public Book(String title, String author, String description) {
-        this.uniqueID = count.incrementAndGet();
         this.title = title;
         this.author = author;
         this.description = description;
     }
 
-    public int getUniqueID() {
+    public String getUniqueID() {
         return uniqueID;
     }
 
-    public void setUniqueID(int uniqueID) {
+    public void setUniqueID(String uniqueID) {
         this.uniqueID = uniqueID;
     }
 
@@ -49,6 +51,12 @@ public class Book {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void updateFields(Book book){
+        this.title = book.title;
+        this.author = book.author;
+        this.description = book.description;
     }
 
     @Override

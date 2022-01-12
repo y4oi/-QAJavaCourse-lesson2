@@ -1,19 +1,16 @@
 package com.officelibrary.library.exposure.model;
 
 import java.util.Objects;
+import java.util.UUID;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document
 public class Author {
 
-    @Id
     private String id;
     private String name;
     private String surname;
 
     public Author(String name, String surname) {
+        this.id = UUID.randomUUID().toString().replace("-", "");
         this.name = name;
         this.surname = surname;
     }

@@ -13,15 +13,12 @@ public class Book {
     @Id
     private String uniqueID;
     private String title;
-    private String author;
     private String description;
 
-    @DocumentReference
     private List<Author> authors;
 
-    public Book(String title, String author, String description, List<Author> authors) {
+    public Book(String title,  String description, List<Author> authors) {
         this.title = title;
-        this.author = author;
         this.description = description;
         this.authors = authors;
     }
@@ -42,14 +39,6 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -68,21 +57,21 @@ public class Book {
 
     public void updateFields(Book book){
         this.title = book.title;
-        this.author = book.author;
+        this.authors = book.authors;
         this.description = book.description;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) { return true; }
-        if (!(o instanceof Book)) { return false; }
+        if (o == null || getClass() != o.getClass()) { return false; }
         Book book = (Book) o;
-        return getUniqueID() == book.getUniqueID() && Objects.equals(getTitle(), book.getTitle()) &&
-            Objects.equals(getAuthor(), book.getAuthor()) && Objects.equals(getDescription(), book.getDescription());
+        return Objects.equals(title, book.title) && Objects.equals(description, book.description) &&
+            Objects.equals(authors, book.authors);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUniqueID(), getTitle(), getAuthor(), getDescription());
+        return Objects.hash(title, description, authors);
     }
 }

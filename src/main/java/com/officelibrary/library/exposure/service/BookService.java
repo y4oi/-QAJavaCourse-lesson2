@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.officelibrary.library.exposure.model.Book;
-import com.officelibrary.library.exposure.repository.AuthorRepository;
 import com.officelibrary.library.exposure.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,16 +14,13 @@ import org.springframework.web.context.annotation.ApplicationScope;
 public class BookService {
 
     private BookRepository bookRepository;
-    private AuthorRepository authorRepository;
 
     @Autowired
-    public BookService(BookRepository bookRepository, AuthorRepository authorRepository) {
+    public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
-        this.authorRepository = authorRepository;
     }
 
     public Book addBook(Book book) {
-        authorRepository.saveAll(book.getAuthors());
         return bookRepository.save(book);
     }
 

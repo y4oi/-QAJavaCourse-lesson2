@@ -1,9 +1,11 @@
 package com.officelibrary.library.exposure.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 @Document
 public class Category {
@@ -12,8 +14,12 @@ public class Category {
     private String id;
     private String name;
 
-    public Category(String name) {
+    @DocumentReference
+    private List<Book> books;
+
+    public Category(String name, List<Book> books) {
         this.name = name;
+        this.books = books;
     }
 
     public String getId() {
@@ -32,16 +38,24 @@ public class Category {
         this.name = name;
     }
 
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) { return true; }
         if (o == null || getClass() != o.getClass()) { return false; }
         Category category = (Category) o;
-        return Objects.equals(id, category.id) && Objects.equals(name, category.name);
+        return Objects.equals(name, category.name) && Objects.equals(books, category.books);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(name, books);
     }
 }
